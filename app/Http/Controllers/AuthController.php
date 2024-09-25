@@ -31,7 +31,11 @@ class AuthController extends Controller
                 
                 
                if(Auth::attempt($data)){
-                return view('user.dashboard');
+                    if(Auth::user()->userType=='admin'){
+                        return view('admin.dashboard');
+                    }else{
+                        return view('user.dashboard');
+                    }
                 
                }
 
