@@ -23,5 +23,6 @@ Route::controller(AuthController::class)->group(function(){
 });
 Route::controller(AdminButtonController::class)->group(function(){
     Route::get('productTable','gotoProductTable')->name('productTable');
+    Route::get('/addProducts','gotoAddNew')->name('addNewProduct');
 });
 

@@ -1,5 +1,16 @@
 @extends('admin.adminLayout')
 @section('mainContents')
+@section('cssSection')
+#salesChart {
+    height: 400px;  /* Set a specific height */
+    width: 100%;    /* Keep the full width */
+    border: 2px solid #3498db; /* Add a blue border */
+    border-radius: 10px;  /* Rounded corners */
+    background-color: #f4f6f9; /* Light gray background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+@endsection
 <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
@@ -19,7 +30,10 @@
                     <div class="card">
                         <div class="card-header">Sales Summary</div>
                         <div class="card-body">
-                            <canvas id="salesChart"></canvas>
+                            
+                            <div class="salesGraph">
+                                Here comes graph
+                            </div>
                         </div>
                     </div>
                 </div>
