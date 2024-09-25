@@ -33,7 +33,7 @@
             <div class="dropdown-content">
                 <a href="#option1">Option 1</a>
                 <a href="#option2">Option 2</a>
-                <a href="#option3">Option 3</a>
+                <a href="{{route('logout')}}">Log Out</a>
             </div>
         </div>
     </div>

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('image');
             $table->decimal('price', 10, 2);
             $table->integer('stock')->default(0);
-            $table->string('status');   
+            $table->string('status')->nullable();   
         });
     }
 

@@ -1,11 +1,10 @@
 <?php
 
+use App\Http\Controllers\AdminButtonController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('user.dashboard');
-});
+
 
 Route::get('/login',function(){
     return view('Authentication.login');
@@ -19,5 +18,10 @@ Route::controller(AuthController::class)->group(function(){
     Route::post('/checkLogin','logMeIn')->name('checkLogin');
     Route::post('/register','registerMe')->name('registerMe');
     Route::get('logout','logMeOut')->name('logout');
+    Route::get('/', 'dashBoard')->name('dash');
 
 });
+Route::controller(AdminButtonController::class)->group(function(){
+    Route::get('productTable','gotoProductTable')->name('productTable');
+});
+

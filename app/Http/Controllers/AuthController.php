@@ -31,11 +31,7 @@ class AuthController extends Controller
                 
                 
                if(Auth::attempt($data)){
-                    if(Auth::user()->userType=='admin'){
-                        return view('admin.dashboard');
-                    }else{
-                        return view('user.dashboard');
-                    }
+                  return redirect()->route('dash');
                 
                }
 
@@ -74,5 +70,12 @@ class AuthController extends Controller
         session_abort();
         Auth::logout();
         return redirect()->route('login')->with('error',"logged out successfully");
+    }
+    public function dashBoard(){
+        if(Auth::user()->userType=='admin'){
+            return view('admin.dashboard');
+        }else{
+            return view('user.dashboard');
+        }
     }
 }
