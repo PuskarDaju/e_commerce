@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminButtonController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -23,6 +24,7 @@ Route::controller(AuthController::class)->group(function(){
 });
 Route::controller(AdminButtonController::class)->group(function(){
     Route::get('productTable','gotoProductTable')->name('productTable');
-    Route::get('/addProducts','gotoAddNew')->name('addNewProduct');
+    
 });
+Route::resource('product',ProductController::class);
 

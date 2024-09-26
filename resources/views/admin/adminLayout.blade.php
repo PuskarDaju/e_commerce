@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Dashboard</title>
     <style>
         @yield('cssSection')
@@ -18,11 +19,12 @@
 <body>
   
     <script>
-        // Ensure jQuery is properly referenced
-        var jq = jQuery.noConflict(); // Use jQuery in noConflict mode
         
-        // Define gotoTable globally
+        
+        const jq = jQuery.noConflict(); 
+        
         function gotoTable() {
+        
             jq.ajax({
                 type: "GET",
                 url: "{{ route('productTable') }}",
@@ -33,7 +35,11 @@
                     jq('#mainDiv').html('<p>Error loading content.</p>');
                 }
             });
+          
         }
+       
+
+        
     </script>
 
     <div class="d-flex">
@@ -64,6 +70,6 @@
     <!-- JS Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="{{asset('build/assets/js/adminLayout.js')}}"></script>
+   
 </body>
 </html>

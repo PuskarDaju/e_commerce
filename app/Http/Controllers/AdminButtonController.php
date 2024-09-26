@@ -14,7 +14,5 @@ class AdminButtonController extends Controller
         }
         return view('admin.productTable')->with('stocks',$stocks);
     }
-    public function gotoAddNew(){
-        return view('admin.addNewProduct');
-    }
+   
 }

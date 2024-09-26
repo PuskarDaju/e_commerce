@@ -88,6 +88,45 @@ form{
     </style>
 </head>
 <div class="productTable">
+    <script>
+
+        function deleteMyStock(id){
+           jq.ajax({
+            headers:{
+                'X-CSRF-TOKEN':jq('meta[name="csrf-token"]').attr('content'),
+            },
+            
+            
+            type: 'DELETE',
+            url: '/product/'+id,
+            data: {id:id},
+            success:function(reply){
+                console.log(reply.msg);
+                console.log(reply.id);
+                console.log(reply.file)
+            },
+            error:function(){
+                console.log("error occured");
+            }
+
+
+           });
+        }
+       
+        function gotoAddNew(){
+         jq.ajax({
+             type: "GET",
+             url: "/product/create",
+             success: function(data) {
+                 jq('#mainDiv').html(data);
+             },
+             error: function() {
+                 jq('#mainDiv').html('<p>Error loading content.</p>');
+             }
+         });
+       
+     }
+     </script>
     <table>
         <tr>
             <th>Image</th>
@@ -101,11 +140,14 @@ form{
         </tr>
         <tr>
            <td colspan="8">
-            <form id="addForm">
-                <button id="btn" onclick="gotoAddNew()" type="submit">Add New</button>
-            </form>
+            
+                <button id="btn" onclick="gotoAddNew()">Add New</button>
+            
            </td>
         </tr>
+        @if ($stocks!=null ||empty($stocks||$stocks!==''))
+            
+        
        @foreach ($stocks as $a)
        <tr>
         <td> 
@@ -129,7 +171,7 @@ form{
        <div class="buttons">
         
         <div class="dltBtn">
-            <button id="delete" data-id="{{$a->id}}">Delete</button>
+            <button id="delete"  onclick="deleteMyStock({{$a->id}})">Delete</button>
         </div>
         
        <div class="editBtn">
@@ -142,24 +184,7 @@ form{
        </tr>
            
        @endforeach
+       @endif
     </table>
-    <script>
-       function gotoAddNew(){
-                
-                jq.ajax({
-                    type: "GET",
-                    url: "{{ route('addNewProduct') }}",
-                    success: function(data) {
-                        jq('#mainDiv').html(data);
-        
-                    },
-                    error:function(){
-                        jq('#mainDiv').html="unable to find the request";
-                    }
-        
-                })
-        
-        
-            }
-    </script>
+    
 </div>

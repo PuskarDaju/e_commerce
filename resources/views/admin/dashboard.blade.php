@@ -19,7 +19,7 @@
                         <h3>Dashboard</h3>
                         <div class="d-flex align-items-center">
                             <span>Steave Jobs</span>
-                            <img src="user-avatar.png" alt="Avatar" class="rounded-circle ml-2" style="width: 40px;">
+                            <img src="" alt="Avatar" class="rounded-circle ml-2" style="width: 40px;">
                         </div>
                     </div>
                 </div>
