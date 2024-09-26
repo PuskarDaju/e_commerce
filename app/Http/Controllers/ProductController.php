@@ -39,7 +39,7 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'quantity' => 'required|integer',
             'description' => 'required',
-            'image' => 'required|mimes:jpg,jpeg,png,gif,svg|max:2048'  // Add max size if necessary
+            'image' => 'required|mimes:jpg,jpeg,png,gif,svg,webp'  // Add max size if necessary
         ]
     );
 
@@ -75,10 +75,7 @@ class ProductController extends Controller
         ]);
 
         if ($insertedData) {
-            return response()->json([
-                'msg' => "Product created successfully",
-                'name'=>$fileName,
-            ]);
+            return redirect()->route('dash')->with('message',"inserted successfully");
         } else {
             return response()->json([
                 'msg' => "Couldn't store the product",
@@ -100,9 +97,11 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit( $id)
     {
-        //
+        $myItem=Product::find($id);
+        return view('admin.editProduct',compact('myItem'));
+        
     }
 
     /**
@@ -110,7 +109,65 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validData=Validator::make(
+            $request->all(),
+            [
+                'name'=>'required|string',
+                
+                'category' => 'required',
+                'price' => 'required|numeric',
+               
+                'description' => 'required',
+               
+
+            ]
+            );
+            if($validData->fails()){
+                // return redirect('/product/'.$id.'/edit')->with('errors',$validData->errors());
+                echo $validData->errors();
+                
+            }else{
+                if($request->hasFile('image')){
+                    $fileName=$request->file('image')->getClientOriginalName();
+                   $photoTOStore=$request->file('image')->storeAs('images/products',$fileName,'public');
+                    
+                    $photoToDelete=Product::where('id',$id)->first('image');
+                    $imagePath=public_path().'/storage/images/products/'.$photoToDelete->image;
+
+                }
+                if(empty($request->image)){
+                    $products=Product::where('id',$id)->update([
+                        'name'=>$request->name,
+                        'category'=>$request->category,
+                        'price'=>$request->price,
+                        
+                        'description'=>$request->description,
+
+
+                    ]);
+                }else{
+
+                    $products=Product::where('id',$id)->update([
+                        'name'=>$request->name,
+                        'category'=>$request->category,
+                        'price'=>$request->price,
+                        
+                        'description'=>$request->description,
+                        'image'=>$fileName,
+
+
+                    ]);
+                    if($products){
+                        if(file_exists($imagePath)){
+                            unlink($imagePath);
+                        }
+                        echo "updated successfully";
+                    }
+
+                
+                }
+                
+            }
     }
 
     /**
@@ -119,6 +176,8 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $lastTime=Product::find($id);
+        echo $lastTime->name;
+
         if(!$lastTime){
             return response()->json([
                 'msg' => "Product not found",

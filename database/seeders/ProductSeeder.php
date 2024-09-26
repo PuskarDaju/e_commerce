@@ -15,28 +15,34 @@ class ProductSeeder extends Seeder
     {
         $products=([
             [
-                'name'=>'Scarpa Terra Brown Leather Light Men',
+                'name'=>'Addidas X',
                 'price'=> 26499,
                 'description'=>'Best shoe for hiking extremly strong and flexible',
-                'image'=>'Scarpa.webp',
+                'image'=>'adidasX.webp',
                 'category'=>'hiking',
                 'stock'=>10,
             ],
             [
-                'name'=>'Gold Star G10 G2008',
+                'name'=>'Nana',
                 'price'=> 2699,
                 'description'=>'Light Weight and flexible',
-                'image'=>'goldStar.webp',
+                'image'=>'nana.jpg',
                 'category'=>'hiking',
                 'stock'=>12
                 ,
 
             ],[
-                'name'=>'JD1 NK Black White Full Sneaker',
+                'name'=>'Nike Dunk',
                 'price'=> 1499,
                 'description'=>'Nothing',
-                'image'=>'jd1.webp',
+                'image'=>'nikeDunk.png',
                 'stock'=>3,
+            ],[
+                'name'=>'Nike Air',
+                'price'=>4500,
+                'description'=>'Best shoe for running',
+                'image'=>'vectorX.jpg',
+                'stock'=>45
             ]
 
 

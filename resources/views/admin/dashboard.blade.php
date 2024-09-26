@@ -12,6 +12,12 @@
 
 @endsection
 <div class="container-fluid">
+    @if (session('message'))
+    {{session('message')
+        
+   }}
+        
+    @endif
             <div class="row">
                 <div class="col-12">
                     <!-- Header -->

@@ -78,7 +78,7 @@ form{
 }
 #product-image{
     width: 100px;
-    height: auto;
+    height: 128px;
 }
 .buttons{
     display: flex;
@@ -88,45 +88,7 @@ form{
     </style>
 </head>
 <div class="productTable">
-    <script>
-
-        function deleteMyStock(id){
-           jq.ajax({
-            headers:{
-                'X-CSRF-TOKEN':jq('meta[name="csrf-token"]').attr('content'),
-            },
-            
-            
-            type: 'DELETE',
-            url: '/product/'+id,
-            data: {id:id},
-            success:function(reply){
-                console.log(reply.msg);
-                console.log(reply.id);
-                console.log(reply.file)
-            },
-            error:function(){
-                console.log("error occured");
-            }
-
-
-           });
-        }
-       
-        function gotoAddNew(){
-         jq.ajax({
-             type: "GET",
-             url: "/product/create",
-             success: function(data) {
-                 jq('#mainDiv').html(data);
-             },
-             error: function() {
-                 jq('#mainDiv').html('<p>Error loading content.</p>');
-             }
-         });
-       
-     }
-     </script>
+  
     <table>
         <tr>
             <th>Image</th>
@@ -141,7 +103,10 @@ form{
         <tr>
            <td colspan="8">
             
-                <button id="btn" onclick="gotoAddNew()">Add New</button>
+                <form action="/product/create" method="get">
+                @csrf
+                <button id="btn" >Add New</button>
+                </form>
             
            </td>
         </tr>
@@ -170,13 +135,18 @@ form{
     <td>
        <div class="buttons">
         
-        <div class="dltBtn">
-            <button id="delete"  onclick="deleteMyStock({{$a->id}})">Delete</button>
-        </div>
+        <form class="dltBtn" action="/product/{{$a->id}}" method="POST">
+            @method('DELETE')
+            @csrf
+            <button >Delete</button>
+        </form>
         
-       <div class="editBtn">
+       <form class="editBtn" action="/product/{{$a->id}}/edit" method="get">
+        @csrf
+        
         <button id="edit" data-id="{{$a->id}}">Edit</button>
-       </div>
+       
+    </form>
        </div>
 
 

@@ -36,10 +36,7 @@
                 }
             });
           
-        }
-       
-
-        
+        }   
     </script>
 
     <div class="d-flex">
@@ -52,7 +49,7 @@
                 <li class="p-2">
                     <i class="fas fa-user-circle"></i> Steave Jobs
                 </li>
-                <li><a href="#" class="p-2">Dashboard</a></li>
+                <li><a href="{{route('dash')}}" class="p-2">Dashboard</a></li>
                 <li><a href="#" class="p-2">Profile</a></li>
                 <li><button id="table" onclick="gotoTable()" class="p-2">Table</button></li>
                 <li><a href="#" class="p-2">Icon</a></li>

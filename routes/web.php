@@ -3,6 +3,8 @@
 use App\Http\Controllers\AdminButtonController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserButtonController;
+use App\Http\Controllers\UserOrderController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -27,4 +29,12 @@ Route::controller(AdminButtonController::class)->group(function(){
     
 });
 Route::resource('product',ProductController::class);
+
+Route::controller(UserButtonController::class)->group(function(){
+    Route::get('/allProducts','displayProducts')->name('viewProducts');
+});
+Route::controller(UserOrderController::class)->group(function(){
+    Route::get('/Cart','gotoCart')->name('viewMyCart');
+    Route::post('/addToCart','addToCart')->name('addToCart');
+});
 
