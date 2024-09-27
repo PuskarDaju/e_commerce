@@ -6,32 +6,24 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
       
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         
         return view('admin.addNewProduct');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */public function store(Request $request)
-{
+     public function store(Request $request)
+    {
     // Validate input
-    $validData = Validator::make(
+        $validData = Validator::make(
         $request->all(),
         [
             'name' => 'required',
@@ -43,7 +35,7 @@ class ProductController extends Controller
         ]
     );
 
-    // Check if validation fails
+
     if ($validData->fails()) {
         return response()->json([
             'msg' => "Please enter valid data",

@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserButtonController;
 use App\Http\Controllers\UserOrderController;
+use App\Http\Middleware\isUserLoggedIn;
 use Illuminate\Support\Facades\Route;
 
 
@@ -24,17 +25,29 @@ Route::controller(AuthController::class)->group(function(){
     Route::get('/', 'dashBoard')->name('dash');
 
 });
-Route::controller(AdminButtonController::class)->group(function(){
-    Route::get('productTable','gotoProductTable')->name('productTable');
+
+Route::middleware(isUserLoggedIn::class)->group(function(){
+    Route::controller(AdminButtonController::class)->group(function(){
+        Route::get('productTable','gotoProductTable')->name('productTable');
+        
+    });
+    Route::resource('product',ProductController::class);
+    
+    Route::controller(UserButtonController::class)->group(function(){
+        Route::get('/allProducts','displayProducts')->name('viewProducts');
+        Route::get('/cart',"gotoCart")->name('gotoCart');
+        Route::post('/search','searchMyProduct')->name('search');
+        Route::get('/profile','gotoAccount')->name('profile');
+        Route::post('/changeProfile',function(){
+            return "hello world";
+        })->name('profileChange');
+        
+    });
+    Route::controller(UserOrderController::class)->group(function(){
+        Route::get('/Cart','gotoCart')->name('viewMyCart');
+        Route::post('/addToCart','addToCart')->name('addToCart');
+        Route::delete('/deleteFromMyCart','deleteMyItem')->name('deleteFromMyCart');
+        
+    });
     
 });
-Route::resource('product',ProductController::class);
-
-Route::controller(UserButtonController::class)->group(function(){
-    Route::get('/allProducts','displayProducts')->name('viewProducts');
-});
-Route::controller(UserOrderController::class)->group(function(){
-    Route::get('/Cart','gotoCart')->name('viewMyCart');
-    Route::post('/addToCart','addToCart')->name('addToCart');
-});
-

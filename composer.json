@@ -5,9 +5,11 @@
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
-       "ext-intl": "*",
         "php": "^8.2",
+        "ext-intl": "*",
+        "algolia/algoliasearch-client-php": "^3.0",
         "laravel/framework": "^11.9",
+        "laravel/scout": "^10.11",
         "laravel/tinker": "^2.9"
     },
     "require-dev": {

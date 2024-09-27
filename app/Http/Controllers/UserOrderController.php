@@ -12,8 +12,8 @@ class UserOrderController extends Controller
    
     public function AddToCart(Request $request){
         $myCart=new cart();
-        $myCart->user_id=Auth::id();
-        $myCart->product_id=$request->id;
+        $myCart->userId=Auth::id();
+        $myCart->productId=$request->id;
         $myCart->quantity= 1;
         $myCart->save();
 
@@ -22,8 +22,10 @@ class UserOrderController extends Controller
         return view('user.cart')->with("items",$item);
 
     }
-    public function gotoCart(){
-       
+    public function deleteMyItem(Request $req){
+        $myItem=cart::where('productId',$req->id)->where('userId',Auth::id())->first();
+        $myItem->delete();
+        return redirect()->back();
     }
     
 }

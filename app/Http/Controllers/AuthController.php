@@ -72,10 +72,14 @@ class AuthController extends Controller
         return redirect()->route('login')->with('error',"logged out successfully");
     }
     public function dashBoard(){
-        if(Auth::user()->userType=='admin'){
-            return view('admin.dashboard');
+        if(Auth::user()){
+            if(Auth::user()->userType=='admin'){
+                return view('admin.dashboard');
+            }else{
+                return view('user.dashboard');
+            }
         }else{
-            return view('user.dashboard');
+            return redirect()->route('login');
         }
     }
 }

@@ -10,9 +10,13 @@
 </head>
 <body>
     <header class="navbar">
-        <div class="logo">Nike</div>
+        <div class="logo">STEPOLOGY</div>
         <div class="search-bar">
-            <input type="text" placeholder="Search for products">
+            <form action="{{route('search')}}" method="POST">
+                @csrf
+                <input type="text" placeholder="Search for products" name="keywords">
+                <button>search</button>
+            </form>
         </div>
         <div class="user-profile">
             <img src="user-icon.png" alt="Profile" class="profile-pic">
@@ -25,13 +29,13 @@
             <ul>
                 <li><a href="{{route('dash')}}">Dashboard</a></li>
                 <li><a href="{{route('viewProducts')}}">Products</a></li>
-                <li><a href="{{route('viewMyCart')}}">Cart</a></li>
+                <li><a href="{{route('gotoCart')}}">Cart</a></li>
                 <li><a href="#">Orders</a></li>
                 <li><a href="#">Wishlist</a></li>
-                <li><a href="#">Account Settings</a></li>
+                <li><a href="{{route('profile')}}">Account Settings</a></li>
                 <li><a href="#">Loyalty Points</a></li>
                 <li><a href="#">Notifications</a></li>
-                <li><a href="/logout">Log SOut</a></li>
+                <li><a href="/logout">Log Out</a></li>
             </ul>
         </aside>
 
