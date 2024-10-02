@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('userId');
             $table->unsignedBigInteger('productId');
             $table->bigInteger('quantity');
+            $table->string('status')->default('cart')->nullable();
 
             $table->foreign('userId')->references('id')->on('users')->onDelete('CASCADE');
             $table->foreign('productId')->references('id')->on('products')->onDelete('CASCADE');

@@ -17,7 +17,7 @@ class UserButtonController extends Controller
         return view('user.viewProducts', compact('products'));
     }
     public function gotoCart(){
-        $myProducts=cart::with('product')->where('userId',Auth::id())->get();
+        $myProducts=cart::with('product')->where('userId',Auth::id())->whereNot('status','in process')->get();
         return view('user.myCart')->with('stocks',$myProducts);
     }
     public function searchMyProduct(Request $req){

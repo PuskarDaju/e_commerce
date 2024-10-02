@@ -18,7 +18,7 @@ class ProductSeeder extends Seeder
                 'name'=>'Addidas X',
                 'price'=> 26499,
                 'description'=>'Best shoe for hiking extremly strong and flexible',
-                'image'=>'adidasX.webp',
+                'image'=>'adidasX.jpeg',
                 'category'=>'hiking',
                 'stock'=>10,
             ],

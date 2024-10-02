@@ -47,6 +47,7 @@ Route::middleware(isUserLoggedIn::class)->group(function(){
         Route::get('/Cart','gotoCart')->name('viewMyCart');
         Route::post('/addToCart','addToCart')->name('addToCart');
         Route::delete('/deleteFromMyCart','deleteMyItem')->name('deleteFromMyCart');
+        Route::POST('/addToOrders','addOrder')->name('addToOrders');
         
     });
     
