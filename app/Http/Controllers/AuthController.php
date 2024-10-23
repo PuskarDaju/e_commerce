@@ -73,10 +73,11 @@ class AuthController extends Controller
     }
     public function dashBoard(){
         if(Auth::user()){
+            $profile=Auth::user();
             if(Auth::user()->userType=='admin'){
-                return view('admin.dashboard');
+                return view('admin.dashboard',compact('profile'));
             }else{
-                return view('user.dashboard');
+                return view('user.dashboard',compact('profile'));
             }
         }else{
             return redirect()->route('login');

@@ -1,6 +1,8 @@
 @extends('admin.adminLayout')
 @section('mainContents')
 @section('cssSection')
+<style>
+
 #salesChart {
     height: 400px;  /* Set a specific height */
     width: 100%;    /* Keep the full width */
@@ -9,6 +11,7 @@
     background-color: #f4f6f9; /* Light gray background */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
 }
+</style>
 
 @endsection
 <div class="container-fluid">

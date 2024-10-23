@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminButtonController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MyProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserButtonController;
 use App\Http\Controllers\UserOrderController;
@@ -29,6 +30,7 @@ Route::controller(AuthController::class)->group(function(){
 Route::middleware(isUserLoggedIn::class)->group(function(){
     Route::controller(AdminButtonController::class)->group(function(){
         Route::get('productTable','gotoProductTable')->name('productTable');
+        Route::get('/allOrders','gotoAllOrder')->name('allOrders');
         
     });
     Route::resource('product',ProductController::class);
@@ -36,11 +38,11 @@ Route::middleware(isUserLoggedIn::class)->group(function(){
     Route::controller(UserButtonController::class)->group(function(){
         Route::get('/allProducts','displayProducts')->name('viewProducts');
         Route::get('/cart',"gotoCart")->name('gotoCart');
+        Route::get('/order',"gotoOrder")->name('gotoOrder');
         Route::post('/search','searchMyProduct')->name('search');
         Route::get('/profile','gotoAccount')->name('profile');
-        Route::post('/changeProfile',function(){
-            return "hello world";
-        })->name('profileChange');
+
+        
         
     });
     Route::controller(UserOrderController::class)->group(function(){
@@ -50,5 +52,6 @@ Route::middleware(isUserLoggedIn::class)->group(function(){
         Route::POST('/addToOrders','addOrder')->name('addToOrders');
         
     });
+    Route::post('/changeProfile',[MyProfileController::class,"changeDetails"])->name('profileChange');
     
 });

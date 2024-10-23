@@ -1,3 +1,5 @@
+@extends('admin.adminLayout')
+@section('mainContents')
 <head>
     
     <style>
@@ -158,3 +160,4 @@ form{
     </table>
     
 </div>
+@endsection

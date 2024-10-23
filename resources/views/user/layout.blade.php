@@ -1,3 +1,11 @@
+@php
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
+$profile=User::find(Auth::id());
+
+@endphp
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,8 +27,12 @@
             </form>
         </div>
         <div class="user-profile">
-            <img src="user-icon.png" alt="Profile" class="profile-pic">
-            <span class="username">John Doe</span>
+            @if ($profile->photo!=null &&!empty($profile))
+            <img src="{{asset('storage/images/profile/'.$profile->photo)}}" alt="Profile" class="profile-pic">
+            @endif
+            <span class="username">
+                {{$profile->name}}
+            </span>
         </div>
     </header>
 
@@ -30,7 +42,7 @@
                 <li><a href="{{route('dash')}}">Dashboard</a></li>
                 <li><a href="{{route('viewProducts')}}">Products</a></li>
                 <li><a href="{{route('gotoCart')}}">Cart</a></li>
-                <li><a href="#">Orders</a></li>
+                <li><a href="{{route('gotoOrder')}}">Orders</a></li>
                 <li><a href="#">Wishlist</a></li>
                 <li><a href="{{route('profile')}}">Account Settings</a></li>
                 <li><a href="#">Loyalty Points</a></li>
