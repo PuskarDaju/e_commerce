@@ -6,7 +6,8 @@
 /storage/*.key
 /vendor
 .env
-/config/services.php
+\config\services.php
+config/services.php
 .env.backup
 .env.production
 .phpactor.json
