@@ -118,13 +118,13 @@ form{
        @foreach ($stocks as $a)
        <tr>
         <td> 
-            <img id="product-image" src="{{asset('storage/images/products/'.$a->image)}}" alt="" srcset="">
+            <img id="product-image" src="{{asset('storage/images/products/'.$a->image_url)}}" alt="" srcset="">
 
 
         </td>
         <td> {{$a->name}} </td>
         <td> {{$a->description}} </td>
-        <td> {{$a->category}} </td>
+        <td> {{$a->category->name}} </td>
         <td> {{$a->price}} </td>
         <td> {{$a->stock}} </td>
         <td> @if (empty($a->status))

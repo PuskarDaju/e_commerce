@@ -14,6 +14,8 @@
 </style>
 
 @endsection
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 <div class="container-fluid">
     @if (session('message'))
     {{session('message')
@@ -41,7 +43,58 @@
                         <div class="card-body">
                             
                             <div class="salesGraph">
-                                Here comes graph
+                                <h1>Sales Report of Current Week</h1>
+
+<!-- Line chart container div -->
+<div style="width: 80%; margin: 0 auto; padding: 20px;">
+    <canvas id="salesLineChart" width="400" height="200"></canvas>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Data passed from the controller
+        const labels = @json($weekLabels); // Days of the current week (e.g., ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'])
+        const data = @json($weekSalesData); // Sales totals for each day of the current week
+
+        new Chart(document.getElementById('salesLineChart'), {
+            type: 'line',
+            data: {
+                labels: labels, // Days of the week
+                datasets: [{
+                    label: 'Sales Amount (₹) for the Week',
+                    data: data, // Sales totals for each day
+                    fill: false,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    tension: 0.1 // Smooth the line curve
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Sales Amount ($)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Days of the Week'
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
                             </div>
                         </div>
                     </div>
@@ -53,9 +106,9 @@
                         <div class="card-header">Feeds</div>
                         <div class="card-body">
                             <ul class="list-unstyled">
-                                <li><i class="fas fa-tasks"></i> You have 4 pending tasks</li>
-                                <li><i class="fas fa-server"></i> Server #1 overloaded</li>
-                                <li><i class="fas fa-box"></i> New order received</li>
+                                <li><i class="fas fa-tasks"></i> You have {{ $pending }} pending tasks</li>
+                                <li><i class="fas fa-server"></i> You have {{ $shipped }} orders to deliver</li>
+                                <li><i class="fas fa-box"></i> {{ $cancel }} orders are cancelled</li>
                                 <li><i class="fas fa-user"></i> New user registered</li>
                             </ul>
                         </div>

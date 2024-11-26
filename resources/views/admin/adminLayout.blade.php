@@ -27,10 +27,10 @@
             <h2>Admin Panel</h2>
             <ul>
                 <li><a href="{{route('dash')}}">Dashboard</a></li>
-                <li><a href="#">Profile</a></li>
+                <li><a href="{{route('adminProfile')}}">Profile</a></li>
                 <li><a href="{{route('productTable')}}">Products</a></li>
-                <li><a href="#">User Orders</a></li>
-                <li><a href="#">Reports</a></li>
+                <li><a href="{{route('allOrders')}}">User Orders</a></li>
+                <li><a href="{{route('delivery')}}">Delivery Guys</a></li>
                 <li><a href="/logout">Logout</a></li>
             </ul>
         </div>

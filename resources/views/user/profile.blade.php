@@ -5,7 +5,7 @@
 @endsection
 @section('changeAble')
     
-    <form action="{{route('profileChange')}}" method="POST">
+    <form enctype="multipart/form-data" action="{{route('profileChange')}}" method="POST">
         @csrf
         <div class="profile-container">
             <div class="profile-header">
@@ -14,7 +14,8 @@
             
             <div class="profile-picture">
                 <img id="profilePic" src="{{asset('storage/images/profile/'.$user->photo)}}" alt="My pic"  value="{{$user->photo}}">
-                <input type="file" id="fileInput" accept="image/*">
+                <label for="image"></label>
+                <input type="file" id="image" name="image">
             </div>
             <div class="profile-info">
                 <label for="name">Name:</label>

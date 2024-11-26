@@ -100,67 +100,60 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-        $validData=Validator::make(
-            $request->all(),
-            [
-                'name'=>'required|string',
-                
-                'category' => 'required',
-                'price' => 'required|numeric',
-               
-                'description' => 'required',
-               
+{
+    // Validate the data
+    $validData = $request->validate([
+        'name' => 'required|string',
+        'category' => 'required',
+        'price' => 'required|numeric',
+        'description' => 'required',
+    ]);
 
-            ]
-            );
-            if($validData->fails()){
-                // return redirect('/product/'.$id.'/edit')->with('errors',$validData->errors());
-                echo $validData->errors();
-                
-            }else{
-                if($request->hasFile('image')){
-                    $fileName=$request->file('image')->getClientOriginalName();
-                   $photoTOStore=$request->file('image')->storeAs('images/products',$fileName,'public');
-                    
-                    $photoToDelete=Product::where('id',$id)->first('image');
-                    $imagePath=public_path().'/storage/images/products/'.$photoToDelete->image;
+    // Initialize file-related variables
+    $fileName = null;
+    $photoToDelete = null;
+    $imagePath = null;
 
-                }
-                if(empty($request->image)){
-                    $products=Product::where('id',$id)->update([
-                        'name'=>$request->name,
-                        'category'=>$request->category,
-                        'price'=>$request->price,
-                        
-                        'description'=>$request->description,
-
-
-                    ]);
-                }else{
-
-                    $products=Product::where('id',$id)->update([
-                        'name'=>$request->name,
-                        'category'=>$request->category,
-                        'price'=>$request->price,
-                        
-                        'description'=>$request->description,
-                        'image'=>$fileName,
-
-
-                    ]);
-                    if($products){
-                        if(file_exists($imagePath)){
-                            unlink($imagePath);
-                        }
-                        echo "updated successfully";
-                    }
-
-                
-                }
-                
-            }
+    // Handle the image upload if a new image is provided
+    if ($request->hasFile('image')) {
+        // Get the original file name
+        $fileName = $request->file('image')->getClientOriginalName();
+        
+        // Store the image in the 'images/products' directory
+        $photoToStore = $request->file('image')->storeAs('images/products', $fileName, 'public');
+        
+        // Get the existing image to delete (if updating)
+        $photoToDelete = Product::where('id', $id)->first('image_url');
+        if ($photoToDelete) {
+            $imagePath = public_path('storage/images/products/'.$photoToDelete->image);
+        }
     }
+
+    // Update the product information in the database
+    $updateData = [
+        'name' => $request->name,
+        'category_id' => $request->category,
+        'price' => $request->price,
+        'description' => $request->description,
+    ];
+
+    // If a new image is uploaded, add it to the update data
+    if ($fileName) {
+        $updateData['image_url'] = $fileName;
+    }
+
+    // Perform the update
+    $productUpdated = Product::where('id', $id)->update($updateData);
+
+    // If the update was successful and an image was uploaded, delete the old image
+    if ($productUpdated && $fileName && file_exists($imagePath)) {
+        //unlink($imagePath);
+    }
+
+    // Return a response (could be a redirect with a success message)
+    return redirect()->route('dash');
+}
+
 
     /**
      * Remove the specified resource from storage.

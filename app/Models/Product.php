@@ -10,8 +10,11 @@ class Product extends Model
 {
    use Searchable;
     public $table='products';
-    public $timestamps=false;
+   
     protected $guarded=[];
+    public function category(){
+        return $this->belongsTo(category::class,'category_id','cid');
+    }
    
     public function toSearchableArray()
     {

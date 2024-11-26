@@ -34,5 +34,9 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'stripe' => [
+        'public' => env('pk_test_51QOf1G2exCUWf2NA3Kw88PDlgo3XLGZXushA2bCGUzvz7tXpeeVGjWRj6c8luCfAg11zDbAz9jlSVc63lcum1JeX00apKdU13p'),
+        'secret' => env('sk_test_51QOf1G2exCUWf2NAGpo896ytc9VKBVGfAFbLFIp08zvDDUImxDYJgfOR6IUZXb3YvB651fIvItqfF6wB0gUmoHP300cTQQqYBA'),
+],
 
 ];

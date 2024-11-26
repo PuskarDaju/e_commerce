@@ -11,36 +11,41 @@ use Illuminate\Validation\Rule;
 class MyProfileController extends Controller
 {
     public function changeDetails(Request $request){
-        $validUser=Validator::make(
+        $validUser = Validator::make(
             $request->all(),
             [
-                'username'=>'required|string',
-                'email'=>'required|email:dns,spoof',Rule::
-                unique('users')->ignore(Auth::id()),
-                'profilePic' => 'nullable|image|mimes:jpeg,png,jpg',
+                'username' => 'required|string',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg',
+                'email' => [
+                    'required',
+                    'email:dns,spoof',
+                    Rule::unique('users')->ignore(Auth::id())
+                ],
             ]
-            );
+        );
 
-            if($validUser->fails()){
-                return response()->json(['error'=>$validUser->errors()],400);
-
-            }else{
-                if($request->hasFile('profilePic')){
-                    $fileName=$request->file('profilePic')->getClientOriginalName();
-                    $request->file('image')->storeAs('images/profile',$fileName,'public');
-                }
-                $user=User::find(Auth::id());
-                $user->name=$request->username;
-                $user->email=$request->email;
-                if($request->profilePic!=null && empty($user->profilePic)){
-                    $user->photo=$fileName;
-                }
-                $user->save();
-
-                return redirect()->route('profile')->with('message',"profileUpdated Successfully");
-
+        if ($validUser->fails()) {
+            return response()->json(['error' => $validUser->errors()], 400);
+        }else{
+            $user=User::find(Auth::id());
+            if($request->hasFile('image')){
+                $fileName=$request->file('image')->getClientOriginalName();
+                $request->file('image')->storeAs('images/profile', $fileName,'public');
+                $user->photo=$fileName;
             }
-            
+            $user->name=$request->username;
+            $user->email=$request->email;
+            $user->save();
+            return response()->json([
+                "msg"=>"Validation successful",
+                "data"=>$request->all(),
+            ]);
+        }
+
+       
+
+        
+
 
     }
 }

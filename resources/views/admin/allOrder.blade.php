@@ -153,62 +153,41 @@
             <thead>
                 <tr>
                     <th>Order ID</th>
-                    <th>User Name</th>
+                    {{-- <th>User Name</th> --}}
                     <th>Date</th>
-                    <th>Status</th>
+                    <th>Payment Status</th>
+                    <th>Payment Method</th>
+                    <th>Transaction ID</th>
                     <th>Total</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="orderTableBody">
-                <!-- Order Rows (Dynamically populated) -->
+              @foreach ($orders as $order)
+              <tr>
+                <td>{{$order->oid }}</td>
+                
+                <td>2081/1/1</td>
+                <td>{{ $order->payment_status }}</td>
+                <td>{{ $order->payment_method }}</td>
+                <td>{{ $order->payment->transaction_id }}</td>
+                
+                <td>${{ $order->total_amount }}</td>
+                @if ($order->payment_status=='completed')
+               <td> <a href="declineOrder/{{$order->oid}}"> decline </a></td></tr>
+                 @else
+                 <td><a href="/aproveOrder/{{$order->oid}}"> approve </a> | <a href="declineOrder/{{$order->oid}}"> decline </a></tr>
+                 </td>
+                @endif
+                
+              </tr>
+                                
+              @endforeach
             </tbody>
         </table>
     </div>
 
-    <!-- JavaScript -->
-    <script>
-        // Sample order data
-        const orders = [
-            { id: '12345', user: 'John Doe', date: '2024-10-18', status: 'Delivered', total: '$80' },
-            { id: '12346', user: 'Jane Smith', date: '2024-10-16', status: 'Processing', total: '$120' },
-            { id: '12347', user: 'Alice Johnson', date: '2024-10-15', status: 'Pending', total: '$150' },
-            { id: '12348', user: 'Bob Lee', date: '2024-10-14', status: 'Cancelled', total: '$60' },
-            { id: '12349', user: 'Chris King', date: '2024-10-12', status: 'Delivered', total: '$90' }
-        ];
 
-        // Function to display orders in table
-        function displayOrders(orders) {
-            const tableBody = document.getElementById('orderTableBody');
-            tableBody.innerHTML = '';  // Clear previous content
-
-            orders.forEach(order => {
-                const row = document.createElement('tr');
-
-                row.innerHTML = `
-                    <td>${order.id}</td>
-                    <td>${order.user}</td>
-                    <td>${order.date}</td>
-                    <td><span class="badge ${order.status.toLowerCase()}">${order.status}</span></td>
-                    <td>${order.total}</td>
-                `;
-
-                tableBody.appendChild(row);
-            });
-        }
-
-        // Filter orders by search input
-        function filterOrders() {
-            const searchValue = document.getElementById('searchOrder').value.toLowerCase();
-            const filteredOrders = orders.filter(order => 
-                order.id.includes(searchValue) || 
-                order.user.toLowerCase().includes(searchValue)
-            );
-            displayOrders(filteredOrders);
-        }
-
-        // Initial load of orders
-        displayOrders(orders);
-    </script>
 
 </body>
 </html>

@@ -43,10 +43,8 @@ $profile=User::find(Auth::id());
                 <li><a href="{{route('viewProducts')}}">Products</a></li>
                 <li><a href="{{route('gotoCart')}}">Cart</a></li>
                 <li><a href="{{route('gotoOrder')}}">Orders</a></li>
-                <li><a href="#">Wishlist</a></li>
                 <li><a href="{{route('profile')}}">Account Settings</a></li>
-                <li><a href="#">Loyalty Points</a></li>
-                <li><a href="#">Notifications</a></li>
+                <li><a href="/notification">Notifications</a></li>
                 <li><a href="/logout">Log Out</a></li>
             </ul>
         </aside>

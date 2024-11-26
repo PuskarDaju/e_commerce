@@ -14,7 +14,7 @@
     <label for="category">Category:  
     </label>
     <input type="text" id="category" name="category"
-    value="{{$myItem->category}}"
+    value="{{$myItem->category_id}}"
     required>
     <label for="description">Description: </label>
     <input type="text" id="description" name="description"

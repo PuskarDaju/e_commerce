@@ -10,14 +10,10 @@ class cart extends Model
     public $table='carts';
     public $timestamps=false;
 
-    protected $fillable=[
-        'id',
-        'userId',
-        "ProductId",
-        "quantity",
-        'status',
-    ];
+    protected $guarded=[];
+    protected $primaryKey="cart_id";
     public function product(){
-        return $this->belongsTo(Product::class,'productId','id');
+        return $this->belongsTo(Product::class,'product_id','id');
     }
+    
 }

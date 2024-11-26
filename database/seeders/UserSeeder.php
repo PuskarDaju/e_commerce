@@ -18,31 +18,49 @@ class UserSeeder extends Seeder
                 'name' => 'John Doe',
                 'email' => 'john@gmail.com',
                 'password' =>'password',
-                'userType' => 'admin'
+                'userType' => 'admin',
+                'shipAddress'=>"haldibari",
+                "billingAddress"=>"haldibari",
+
             ],
             [
                 'name' => 'Puskar Niroula',
                 'email' => 'puskar@gmail.com',
                 'password' =>'password',
-                'userType' => 'admin'
+                'userType' => 'admin',
+                'shipAddress'=>"haldibari",
+                "billingAddress"=>"haldibari",
             ],
             [
                 'name' => 'Sanjog Niroula',
                 'email' => 'sanjog@gmail.com',
                 'password' =>'password',
+                'shipAddress'=>"haldibari",
+                "billingAddress"=>"haldibari",
                
             ],
             [
                 'name' => 'Nischal Basnet',
                 'email' => 'nischal@gmail.com',
                 'password' =>'password',
+                'shipAddress'=>"haldibari",
+                "billingAddress"=>"haldibari",
                 
             ],
             [
                 'name' => 'Kshitiz Timsina',
                 'email' => 'kshitiz@gmail.com',
                 'password' =>'password',
+                'shipAddress'=>"haldibari",
+                "billingAddress"=>"haldibari",
                 
+            ],[
+                'name' => 'Samir Sitaula',
+                'email' => 'samir@gmail.com',
+                'password' =>'password',
+                'userType'=>'delivery',
+                'shipAddress'=>"haldibari",
+                "billingAddress"=>"haldibari",
             ]
         ]);
 
