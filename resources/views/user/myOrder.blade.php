@@ -6,69 +6,66 @@
  
     @endsection
     @section('changeAble')
-        
-    
+<h2>Your Orders</h2>
 
-  <h2>Your Orders</h2>
+<div class="order-tabs">
+  <button class="active" onclick="showOrders('previous')">Previous Orders</button>
+  <button onclick="showOrders('new')">New Orders</button>
+  <button onclick="showOrders('in-process')">Orders In Process</button>
+</div>
 
-  <!-- Order Tabs for navigation -->
-  <div class="order-tabs">
-    <button class="active" onclick="showOrders('previous')">Previous Orders</button>
-    <button onclick="showOrders('new')">New Orders</button>
-    <button onclick="showOrders('in-process')">Orders In Process</button>
+<!-- Previous Orders Section -->
+<div id="previous" class="orders-container active">
+  @foreach($previous as $order)
+  <div class="order-card">
+      <h4>Order ID: {{ $order->oid }}</h4>
+      <p><span>Date:</span> {{ $order->created_at->format('d/m/Y') }}</p>
+      <p><span>Status:</span> {{ $order->order_status }}</p>
+      <p><span>Price:</span> ${{ $order->total_amount }}</p>
   </div>
+  @endforeach
+</div>
 
-  <!-- Previous Orders Section -->
-  <div id="previous" class="orders-container active">
-    <div class="order-card">
-      <h4>Order ID: 12345</h4>
-      <p><span>Date:</span> 12/09/2024</p>
-      <p><span>Status:</span> Delivered</p>
-      <p><span>Price:</span> $80</p>
-    </div>
-
-    <div class="order-card">
-      <h4>Order ID: 12346</h4>
-      <p><span>Date:</span> 08/09/2024</p>
-      <p><span>Status:</span> Delivered</p>
-      <p><span>Price:</span> $120</p>
-    </div>
+<!-- New Orders Section -->
+<div id="new" class="orders-container">
+  @foreach($active as $order)
+  <div class="order-card">
+      <h4>Order ID: {{ $order->oid }}</h4>
+      <p><span>Date:</span> {{ $order->created_at->format('d/m/Y') }}</p>
+      <p><span>Status:</span> {{ $order->order_status }}</p>
+      <p><span>Price:</span> ${{ $order->total_amount }}</p>
+      <p><span>OTP:{{ $order->otp }}</span></p>
   </div>
+  @endforeach
+</div>
 
-  <!-- New Orders Section -->
-  <div id="new" class="orders-container">
-    <div class="order-card">
-      <h4>Order ID: 12347</h4>
-      <p><span>Date:</span> 19/10/2024</p>
-      <p><span>Status:</span> Awaiting Confirmation</p>
-      <p><span>Price:</span> $150</p>
-    </div>
+<!-- Orders In Process Section -->
+<div id="in-process" class="orders-container">
+  @foreach($pending as $order)
+  <div class="order-card">
+      <h4>Order ID: {{ $order->oid }}</h4>
+      <p><span>Date:</span> {{ $order->created_at->format('d/m/Y') }}</p>
+      <p><span>Status:</span> {{ $order->order_status }}</p>
+      <p><span>Price:</span> ${{ $order->total_amount }}</p>
   </div>
+  @endforeach
+</div>
 
-  <!-- Orders In Process Section -->
-  <div id="in-process" class="orders-container">
-    <div class="order-card">
-      <h4>Order ID: 12348</h4>
-      <p><span>Date:</span> 17/10/2024</p>
-      <p><span>Status:</span> Being Shipped</p>
-      <p><span>Price:</span> $60</p>
-    </div>
-  </div>
+<!-- JavaScript -->
+<script>
+  function showOrders(sectionId) {
+      // Remove "active" class from all containers
+      const containers = document.querySelectorAll('.orders-container');
+      containers.forEach(container => container.classList.remove('active'));
 
-  <script>
-    function showOrders(category) {
-      const categories = document.querySelectorAll('.orders-container');
+      // Remove "active" class from all buttons
       const buttons = document.querySelectorAll('.order-tabs button');
-
-      // Hide all order containers
-      categories.forEach(container => container.classList.remove('active'));
-      // Remove 'active' class from all buttons
       buttons.forEach(button => button.classList.remove('active'));
 
-      // Show the clicked category's orders
-      document.getElementById(category).classList.add('active');
+      // Add "active" class to the clicked tab and corresponding section
+      document.getElementById(sectionId).classList.add('active');
       event.target.classList.add('active');
-    }
-  </script>
+  }
+</script>
 @endsection
 
