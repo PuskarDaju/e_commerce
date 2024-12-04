@@ -106,7 +106,7 @@
         @csrf
         <input type="hidden" name="id" value="{{$a->product->id}}">
         
-        <button id="buy">BUY</button>
+        <button id="edit">EDIT</button>
        
     </form>
        </div>

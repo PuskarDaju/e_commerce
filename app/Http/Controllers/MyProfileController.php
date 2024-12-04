@@ -36,10 +36,7 @@ class MyProfileController extends Controller
             $user->name=$request->username;
             $user->email=$request->email;
             $user->save();
-            return response()->json([
-                "msg"=>"Validation successful",
-                "data"=>$request->all(),
-            ]);
+            return redirect()->back();
         }
 
        

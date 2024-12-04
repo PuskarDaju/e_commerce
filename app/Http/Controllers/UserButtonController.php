@@ -41,7 +41,6 @@ class UserButtonController extends Controller
     public function searchMyProduct(Request $req){
         $myProducts=Product::search($req->keywords)->get();
         return  view('user.viewProducts')->with('products',$myProducts);
-
     }
     public function gotoAccount(){
         $user=User::find(Auth::id());

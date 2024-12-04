@@ -110,6 +110,11 @@ class AdminButtonController extends Controller
                 return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage());
             }
         }
+        $notification=notification::create([
+
+            "user_id"=>$order->user_id,
+            "msg"=>"Your order of order id ".$order->oid." has been cancelled",
+        ]);
         $user=order::where("oid",$id)->delete();
         
         return redirect()->back();

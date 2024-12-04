@@ -22,7 +22,14 @@ use Illuminate\Support\Facades\Validator;
 class UserOrderController extends Controller
 {
     public function AddToCart(Request $request){
+
+       // dd($request);
+        if($request->quantity==null||$request->quantity==0){
+            return redirect()->back()->with('msg',"please Enter at least one Quantity");
+           }
+        
         $pro=Product::where('id',$request->id)->first();
+
       
         if($pro->stock_quantity<$request->quantity){
             return back()->with('msg',"not enough stock in the store currently please try again with lower quantity");
@@ -35,6 +42,7 @@ class UserOrderController extends Controller
                 'user_id'=>Auth::id(),
             ]);
 
+         
            
             $myCart=new cart();
             $myCart->cart_id=$newCart->id;
@@ -45,9 +53,8 @@ class UserOrderController extends Controller
         }else{
             $nextCondition=cart::where('cart_id',$checkMyCart->cart_id)->where('product_id',$request->id)->first();
            if($nextCondition!=null){
-            return response()->json([
-                'msg'=>"item is already in the cart",
-            ]);
+            
+                return redirect()->back()->with('msg',"Item is already in your cart");
 
            }else{
             $myCart=new cart();
@@ -59,7 +66,7 @@ class UserOrderController extends Controller
             
            }
         }     
-        return redirect()->back()->with('msg',"added to cart");
+        return redirect()->route('viewProducts')->with('msg',"added to cart");
 
     }
     public function deleteMyItem(Request $req){
