@@ -56,7 +56,7 @@ $profile=User::find(Auth::id());
     </div>
 
     <footer class="footer">
-        <p>&copy; 2024 Nike. All Rights Reserved.</p>
+        <p>&copy; STEPOLOGY </p>
     </footer>
 </body>
 </html>

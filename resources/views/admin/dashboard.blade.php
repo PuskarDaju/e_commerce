@@ -117,7 +117,7 @@
             </div>
 
             <!-- Top Selling Products -->
-            <div class="row mt-4">
+            {{-- <div class="row mt-4">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">Top Selling Products</div>
@@ -159,6 +159,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 @endsection

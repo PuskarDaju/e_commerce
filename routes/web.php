@@ -37,6 +37,9 @@ Route::middleware(isUserLoggedIn::class)->group(function(){
         Route::get('/declineOrder/{id}','declineOrder')->name('declineOrder');
         Route::get('/delivery','showGuys')->name('delivery');
         Route::post('/checkDelivery','confirmDelivery')->name('confirmDelivery');
+        Route::post('/checkIfCorrect','cic')->name('checkIfCorrect');
+        Route::get('/lc/{id}','gotoLastConfirm')->name('lc');
+
         
        
         

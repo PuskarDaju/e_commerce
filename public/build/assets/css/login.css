@@ -1,0 +1,132 @@
+/* General body settings */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #0e0e24;
+    position: relative;
+}
+
+/* Container for the entire page */
+.container {
+    position: relative;
+    z-index: 1;
+}
+#showMe{
+    position: absolute;
+    border: 1px solid black;
+    width: fit-content;
+    bottom: 43%;
+    left: 84%;
+    color: black;
+}
+
+/* Background circle elements */
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    
+    z-index: -1;
+}
+
+.circle1 {
+    width: 250px;
+    height: 250px;
+    bottom: 70%;
+    left: -150px;
+    background: radial-gradient(circle, #0061ff, #60efff);
+}
+
+.circle2 {
+    width: 250px;
+    height: 250px;
+    bottom: -160px;
+    right: -140px;
+    background: radial-gradient(circle, #ff512f, #ff9966);
+}
+
+/* Login box styling */
+.login-box {
+    background-color: rgba(0, 0, 0, 0.4); /* 40% transparent black background */
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 10px 15px 25px rgba(0, 0, 0, 0.5);
+    width: 350px;
+    text-align: center;
+    color: white;
+}
+
+.login-box h2 {
+    color: #fff;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+label {
+    color: #fff;
+    display: block;
+    text-align: left;
+    margin: 10px 0 5px;
+}
+
+input{
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    
+    color: #aaa;
+    font-size: 16px;
+}
+
+
+
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+button[type="submit"]:hover {
+    background-color: #ddd;
+}
+
+/* Social login buttons */
+.social-login {
+    display: flex;
+    justify-content: space-between;
+}
+
+.social-btn {
+    width: 48%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #fff;
+}
+
+.google-btn {
+    background-color: #db4437;
+}
+
+.facebook-btn {
+    background-color: #3b5998;
+}
+
+.social-btn:hover {
+    opacity: 0.9;
+}

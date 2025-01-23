@@ -6,7 +6,7 @@
 @section('mainContents')
 
 <div class="table-container">
-    <h1>User List</h1>
+    <h1> List</h1>
     <table class="user-table">
         <thead>
             <tr>

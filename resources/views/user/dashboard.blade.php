@@ -22,35 +22,20 @@
         <section class="wishlist">
             <h2>Wishlist</h2>
             <div class="wishlist-item">
-                <img src="product1.jpg" alt="Product 1">
+                <img src="{{ asset('/storage/images/products/air-max-270.jpg') }}" alt="Product_1">
                 <p>Nike Air Max</p>
                 <button>View</button>
             </div>
             <div class="wishlist-item">
-                <img src="product2.jpg" alt="Product 2">
+                <img src="{{ asset('/storage/images/products/ultraBost22.jpg') }}" alt="Product 2">
                 <p>Nike Air Jordan</p>
                 <button>View</button>
             </div>
         </section>
 
-        <!-- Loyalty Points Section -->
-        <section class="loyalty">
-            <h2>Loyalty Points</h2>
-            <p>You have <strong>1500</strong> points.</p>
-        </section>
+      
 
-        <!-- Recommended Products Section -->
-        <section class="recommendations">
-            <h2>Recommended for You</h2>
-            <div class="recommendation-item">
-                <img src="recommended1.jpg" alt="Product 1">
-                <p>Nike Free Run</p>
-            </div>
-            <div class="recommendation-item">
-                <img src="recommended2.jpg" alt="Product 2">
-                <p>Nike Metcon</p>
-            </div>
-        </section>
+        
         
     @endsection
 

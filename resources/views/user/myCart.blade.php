@@ -141,10 +141,9 @@
                 <div class="form-group">
                     <label for="payment_method">Payment Method</label>
                     <select name="payment_method" id="payment_method">
-                        <option value="credit_card">Credit Card</option>
-                        <option value="paypal">PayPal</option>
+                        
                         <option value="cod">Cash on Delivery</option>
-                        <option value="stripe">stripe</option>
+                        <option value="stripe">STRIPE</option>
                     </select>
                 </div>
                 <div id="hiddenFields"></div>

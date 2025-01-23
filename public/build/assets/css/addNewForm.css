@@ -1,0 +1,68 @@
+/* Form container styling */
+#addItemForm {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+/* Label styling */
+#addItemForm label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Input field styling */
+#addItemForm input[type="text"],
+#addItemForm input[type="number"],
+#addItemForm input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+    background-color: #fff;
+    transition: border-color 0.3s;
+}
+
+/* Input field focus state */
+#addItemForm input[type="text"]:focus,
+#addItemForm input[type="number"]:focus,
+#addItemForm input[type="file"]:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+/* Button styling */
+#addItemForm button {
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Button hover effect */
+#addItemForm button:hover {
+    background-color: #2980b9;
+}
+
+/* Responsive form on small screens */
+@media (max-width: 768px) {
+    #addItemForm {
+        padding: 20px;
+        margin: 20px;
+    }
+}

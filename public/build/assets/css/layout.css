@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #625d5d;
+    padding: 1rem 2rem;
+    color: #fff;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.search-bar input {
+    padding: 0.5rem;
+    width: 250px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+}
+
+.user-profile .profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.container {
+    display: flex;
+    height: calc(100vh - 70px);
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #968a8a;
+    padding: 2rem 1rem;
+    height: 100vh;
+    color: #fff;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    margin: 1.5rem 0;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+
+.main-content {
+    flex: 1;
+    padding: 2rem;
+    background-color: #fff;
+    overflow-y: auto;
+}
+
+.orders, .wishlist, .loyalty, .recommendations {
+    margin-bottom: 2rem;
+}
+
+.orders h2, .wishlist h2, .loyalty h2, .recommendations h2 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.order, .wishlist-item, .recommendation-item {
+    padding: 1rem;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+}
+
+.order p, .wishlist-item p, .recommendation-item p {
+    margin-bottom: 0.5rem;
+}
+
+.wishlist-item, .recommendation-item {
+    display: flex;
+    align-items: center;
+}
+
+.wishlist-item img, .recommendation-item img {
+    width: 80px;
+    height: 80px;
+    margin-right: 1rem;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #000;
+    color: #fff;
+}
+form button {
+    background: #007bff;
+    color: #fff;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s;
+}

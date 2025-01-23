@@ -1,0 +1,125 @@
+/* General reset and box model */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
+
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+/* Main form container */
+#payment-form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    margin: auto;
+}
+
+/* Heading */
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* Input styling */
+input[type="text"], input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    transition: border 0.3s ease;
+}
+
+/* Focus effect for inputs */
+input[type="text"]:focus, input[type="number"]:focus {
+    border: 1px solid #4CAF50;
+    outline: none;
+}
+
+/* Card element styling */
+#card-element {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+}
+
+/* Label styling */
+label {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 8px;
+    text-align: left;
+    display: block;
+}
+
+/* Error message styling */
+#card-errors {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: left;
+}
+
+/* Button styling */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+button:hover {
+    background-color: #45a049;
+}
+
+/* Styling for total price */
+p {
+    font-size: 18px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Make inputs and button more responsive */
+@media (max-width: 600px) {
+    #payment-form {
+        padding: 20px;
+        width: 100%;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    input[type="text"], input[type="number"], button {
+        font-size: 14px;
+    }
+}

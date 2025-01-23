@@ -55,7 +55,7 @@ class UserSeeder extends Seeder
                 "billingAddress"=>"haldibari",
                 
             ],[
-                'name' => 'Samir Sitaula',
+                'name' => 'Abdullah',
                 'email' => 'samir@gmail.com',
                 'password' =>'password',
                 'userType'=>'delivery',

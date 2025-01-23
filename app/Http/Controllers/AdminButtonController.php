@@ -168,5 +168,22 @@ class AdminButtonController extends Controller
             ]);
         }
     }
+    public function cic(Request $req){
+        if(!empty($req->otp)){
+            return response()->json([
+                "msg"=>"yes",
+            ]);
+        }else{
+            return response()->json([
+                "msg"=>"No",
+            ]);
+        }
+
+    }
+    public function gotoLastConfirm($id){
+        $datas=orderitems::where('order_id',$id)->get();
+        return view('delivery.lastConfirm')->with('datas',$datas);
+
+    }
    
 }    
