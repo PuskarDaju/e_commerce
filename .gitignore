@@ -1,3 +1,18 @@
-/node_modules
+# Environment
 .env
-vendor
+.env.*
+
+# Vendor
+/vendor/
+
+# Node
+/node_modules/
+
+# IDE / Editor settings
+.idea/
+.vscode/
+
+# Laravel specific
+/public/storage
+/storage/*.key
+
