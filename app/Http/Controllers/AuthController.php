@@ -20,7 +20,7 @@ class AuthController extends Controller
         $validData=validator::make(
             $req->all(),
             [
-                
+
                 'email'=>'required|email',
                 'password'=>'required|string'
 
@@ -34,14 +34,14 @@ class AuthController extends Controller
                     'email'=>$req->email,
                     'password'=>$req->password
                 ]);
-                
-                
+
+
                if(Auth::attempt($data)){
                   return redirect()->route('dash');
-                
+
                }
 
-                 
+
                 else{
                     return redirect()->route('login')->with('error',"Invalid Email or Password");
                 }
@@ -57,7 +57,7 @@ class AuthController extends Controller
             ]);
             if($validData->fails()){
                return redirect()->route('signUp')->with('error',$validData->errors());
-               
+
             }else{
                 $dataToInsert=User::create([
                     'name'=>$req->username,
@@ -81,41 +81,32 @@ class AuthController extends Controller
         if(Auth::user()){
             $profile=Auth::user();
             if(Auth::user()->userType=='admin'){
-               
 
-                $currentDate = Carbon::now('Asia/Kathmandu'); // This sets the correct time zone for Nepal (UTC +5:45)
 
-                // Set today as the end of the week (which is today)
+                $currentDate = Carbon::now('Asia/Kathmandu');
+
+
                 $endOfWeek = $currentDate;
-        
-                // Calculate the start of the week as exactly 7 days before today
+
                 $startOfWeek = $currentDate->copy()->subDays(6);
-        
-                // Convert the start and end of week to 'Y-m-d' format for proper comparison in SQL query
+
                 $startOfWeekFormatted = $startOfWeek->format('Y-m-d');
                 $endOfWeekFormatted = $endOfWeek->format('Y-m-d');
-        
-                
-        
-                // Get sales data for the last 7 days (using the correct time zone)
+
                 $salesData = Sale::whereDate('created_at', '>=', $startOfWeekFormatted)
                                  ->whereDate('created_at', '<=', $endOfWeekFormatted)
                                  ->selectRaw('DATE(created_at) as date, SUM(total_amount) as total')
                                  ->groupBy('date')
                                  ->orderBy('date', 'asc')
                                  ->get();
-        
-                
-        
-                // Prepare data for the chart
                 $weekLabels = [];
                 $weekSalesData = [];
-        
+
                 // Loop through the sales data and prepare the labels and sales totals
                 for ($i = 0; $i < 7; $i++) {
                     $date = $startOfWeek->copy()->addDays($i);
                     $weekLabels[] = $date->format('D'); // 'Mon', 'Tue', etc.
-        
+
                     // Check if sales data exists for the current date
                     $salesForDay = $salesData->firstWhere('date', $date->format('Y-m-d'));
                     $weekSalesData[] = $salesForDay ? (float) $salesForDay->total : 0.00; // Default to 0 if no sales for the day
