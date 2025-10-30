@@ -11,12 +11,12 @@ class ProductController extends Controller
 
     public function index()
     {
-      
+
     }
 
     public function create()
     {
-        
+
         return view('admin.addNewProduct');
     }
 
@@ -45,14 +45,11 @@ class ProductController extends Controller
         // Handle file upload
         if ($request->hasFile('image')) {
             $fileName=$request->file('image')->getClientOriginalName();
-
-            // Store the file and get the path
              $filePath = $request->file('image')->storeAs('/images/products',$fileName , 'public');
-             
         } else {
             return response()->json([
                 'msg' => "Image is required",
-                
+
             ]);
         }
 
@@ -76,7 +73,7 @@ class ProductController extends Controller
     }
 }
 
-    
+
 
     /**
      * Display the specified resource.
@@ -93,7 +90,7 @@ class ProductController extends Controller
     {
         $myItem=Product::find($id);
         return view('admin.editProduct',compact('myItem'));
-        
+
     }
 
     /**
@@ -118,10 +115,10 @@ class ProductController extends Controller
     if ($request->hasFile('image')) {
         // Get the original file name
         $fileName = $request->file('image')->getClientOriginalName();
-        
+
         // Store the image in the 'images/products' directory
         $photoToStore = $request->file('image')->storeAs('images/products', $fileName, 'public');
-        
+
         // Get the existing image to delete (if updating)
         $photoToDelete = Product::where('id', $id)->first('image_url');
         if ($photoToDelete) {
@@ -168,15 +165,15 @@ class ProductController extends Controller
                 'msg' => "Product not found",
             ]);
         }else{
-            
-            
+
+
                 $imagePath=public_path().'/storage/images/products/'.$lastTime->image;
-                
+
                 if(file_exists($imagePath)){
                    unlink($imagePath);
                 }
-            
-        
+
+
         $dataToDelete=Product::where('id',$id)->delete();
         if($dataToDelete){
             return response()->json([

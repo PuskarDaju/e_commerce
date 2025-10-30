@@ -14,24 +14,25 @@ use Illuminate\Support\Facades\Auth;
 
 class UserButtonController extends Controller
 {
-   
+
     public function displayProducts(){
         $products = Product::all();
         return view('user.viewProducts', compact('products'));
     }
     public function gotoCart(){
-      
-
-        $myProducts=cart::with('product.category')->where('user_id',Auth::id())->get();
-        
-        
+        $cart_id=maincart::where('user_id',Auth::id())->where('status',"active")->first();
+        $myProducts=null;
+        if($cart_id!=null){
+            $myProducts=cart::with('product.category')->where('user_id',Auth::id())->get();
+            return view('user.myCart')->with('stocks',$myProducts);
+        }
         return view('user.myCart')->with('stocks',$myProducts);
     }
     public function gotoOrder(){
         $active=order::where("user_id",Auth::id())->where('order_status','shipped')->get();
         $previous=order::where("user_id",Auth::id())->where('order_status','delivered')->get();
         $pending=order::where("user_id",Auth::id())->where('order_status','pending')->get();
-        
+
         return view('user.myOrder',[
             'active'=>$active,
             "previous"=>$previous,
@@ -48,8 +49,8 @@ class UserButtonController extends Controller
     }
     public function gotoNotification(){
         $msg=notification::where('user_id',Auth::id())->get();
-       
+
         return view('user.notification')->with('msges',$msg);
     }
-    
+
 }

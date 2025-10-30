@@ -47,13 +47,13 @@ class PaymentController extends Controller
                 $customer = Customer::retrieve($user->stripe_customer_id);
             }
 
-            // Attach payment method
+
             $paymentMethod = PaymentMethod::retrieve($request->payment_method_id);
             if (!$paymentMethod->customer) {
                 $paymentMethod->attach(['customer' => $customer->id]);
             }
 
-            // Create payment intent
+
             $paymentIntent = PaymentIntent::create([
                 'amount' => $request->price * 100,
                 'currency' => 'usd',
@@ -70,7 +70,7 @@ class PaymentController extends Controller
                 ],
             ]);
 
-            // Update DB on success
+
             if ($paymentIntent) {
                 DB::beginTransaction();
                 try {

@@ -31,9 +31,10 @@ class AdminButtonController extends Controller
         return view('admin.productTable')->with('stocks',$stocks);
     }
     public function gotoAllOrder(){
-       
+
         $orders= order::whereNot('order_status','completed')->with('payment')->get();
-        
+
+
         return view('admin.allOrder',compact(var_name: 'orders'));
     }
     public function gotoAdminProfile(){
@@ -42,65 +43,61 @@ class AdminButtonController extends Controller
     }
     public function declineOrder($id){
         $user=order::where("oid",$id)->first();
-        
+
         $order=order::where('oid',$id)->first();
-        
+
         if($order->payment_status=='completed'){
-            
+
             try {
                 DB::beginTransaction();
                 // Fetch the order
                 $order = order::with('payment')->where('oid', $id)->first();
-               
-        
+
+
                 if (!$order) {
-                
+
                     return redirect()->back()->with('error', 'Order not found or unauthorized access.');
                 }
-                
-        
+
+
                 // Check if the order is eligible for cancellation
                 if ($order->payment_status == 'completed') {
-                   
+
                     // Update order status
                     $order->update([
                         'order_status' => 'canceled',
                         'payment_status' => 'refunded',
                     ]);
-                    
-                   
-        
+
+
+
                     // Process refund based on payment method
                     if ($order->payment->method == "stripe") {
-                     
+
                         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
-                        
-                   
+
+
                             $refund = Refund::create([
                                 'payment_intent' => $order->payment->transaction_id,
                                 'amount' => $order->payment->amount * 100, // Amount in cents
                             ]);
-                            
-                        
 
-        
+
+
+
                         // Update payment record in the database
                      payment::where('order_id',$order->oid)->update([
                         "status"=>"refunded"
                      ]);
-                      
+
                     }
-        
+
                     // Notify the user
                     notification::create([
                         'user_id' => Auth::id(),
                         'msg' => "Your order #{$id} has been canceled and refunded lol.",
                     ]);
                   DB::commit();
-                    
-        
-                    
-        
                     return redirect()->route('user.orders')->with('success', 'Order canceled and refunded successfully.');
                 } else {
                     return redirect()->back()->with('error', 'Order cannot be canceled or is not eligible for a refund.');
@@ -116,10 +113,18 @@ class AdminButtonController extends Controller
             "msg"=>"Your order of order id ".$order->oid." has been cancelled",
         ]);
         $user=order::where("oid",$id)->delete();
-        
+
         return redirect()->back();
     }
-    //public function approveOrder(){}
+    public function approveOrder(int $id){
+
+        $order=order::where('oid',$id)->first();
+        $order->order_status="shipped";
+        $order->payment_status="completed";
+        $order->save();
+
+        return redirect()->back()->with('msg',"Order Approved");
+    }
 
     public function showGuys(){
         $guys=User::where('userType',"delivery")->get();
@@ -134,7 +139,7 @@ class AdminButtonController extends Controller
         if($myOtp->fails()){
             return response()->json([
                 'msg'=>"please enter a valid otp",
-                
+
             ]);
         }
         $actualOtp=order::where('otp',$req->otp)->first();
@@ -145,7 +150,7 @@ class AdminButtonController extends Controller
                 'total_amount'=>$actualOtp->total_amount,
             ]);
             $detailsOfOrder=orderitems::where('order_id',$actualOtp->oid)->get();
-            
+
             foreach($detailsOfOrder as $a){
                 salesdetail::create([
                     'sales_id'=>$sales->id,
@@ -153,8 +158,8 @@ class AdminButtonController extends Controller
                     "quantity"=>$a->quantity,
                     "price"=>$a->price,
                 ]);
-                
-               
+
+
                 $product=Product::where('id',$a->product_id)->first();
                 $product->decrement('stock_quantity',$a->quantity);
             }
@@ -185,5 +190,5 @@ class AdminButtonController extends Controller
         return view('delivery.lastConfirm')->with('datas',$datas);
 
     }
-   
-}    
+
+}

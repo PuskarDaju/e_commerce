@@ -26,7 +26,7 @@
         }
 
         /* Sidebar Styles */
-      
+
 
         /* Main Content */
         .main-content {
@@ -134,11 +134,6 @@
     </style>
 </head>
 <body>
-
-    <!-- Sidebar -->
-   
-
-    <!-- Main Content -->
     <div class="main-content">
         <h1>All User Orders</h1>
 
@@ -166,22 +161,22 @@
               @foreach ($orders as $order)
               <tr>
                 <td>{{$order->oid }}</td>
-                
+
                 <td>2081/1/1</td>
                 <td>{{ $order->payment_status }}</td>
                 <td>{{ $order->payment_method }}</td>
                 <td>{{ $order->payment->transaction_id }}</td>
-                
+
                 <td>${{ $order->total_amount }}</td>
                 @if ($order->payment_status=='completed')
-               <td> <a href="declineOrder/{{$order->oid}}"> decline </a></td></tr>
+               <td> <a href="declineOrder/{{$order->payment->order_id}}"> decline </a></td></tr>
                  @else
-                 <td><a href="/aproveOrder/{{$order->oid}}"> approve </a> | <a href="declineOrder/{{$order->oid}}"> decline </a></tr>
+                 <td><a href="/aproveOrder/{{$order->payment->order_id}}"> approve </a> | <a href="declineOrder/{{$order->payment->order_id}}"> decline </a></tr>
                  </td>
                 @endif
-                
+
               </tr>
-                                
+
               @endforeach
             </tbody>
         </table>

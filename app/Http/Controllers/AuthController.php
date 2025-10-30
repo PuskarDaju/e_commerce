@@ -81,19 +81,12 @@ class AuthController extends Controller
         if(Auth::user()){
             $profile=Auth::user();
             if(Auth::user()->userType=='admin'){
-
-
                 $currentDate = Carbon::now('Asia/Kathmandu');
-
-
                 $endOfWeek = $currentDate;
-
                 $startOfWeek = $currentDate->copy()->subDays(6);
-
                 $startOfWeekFormatted = $startOfWeek->format('Y-m-d');
                 $endOfWeekFormatted = $endOfWeek->format('Y-m-d');
-
-                $salesData = Sale::whereDate('created_at', '>=', $startOfWeekFormatted)
+                $salesData = order::whereDate('created_at', '>=', $startOfWeekFormatted)
                                  ->whereDate('created_at', '<=', $endOfWeekFormatted)
                                  ->selectRaw('DATE(created_at) as date, SUM(total_amount) as total')
                                  ->groupBy('date')
@@ -102,15 +95,24 @@ class AuthController extends Controller
                 $weekLabels = [];
                 $weekSalesData = [];
 
-                // Loop through the sales data and prepare the labels and sales totals
                 for ($i = 0; $i < 7; $i++) {
                     $date = $startOfWeek->copy()->addDays($i);
-                    $weekLabels[] = $date->format('D'); // 'Mon', 'Tue', etc.
+                    $weekLabels[] = $date->format('D');
 
-                    // Check if sales data exists for the current date
                     $salesForDay = $salesData->firstWhere('date', $date->format('Y-m-d'));
                     $weekSalesData[] = $salesForDay ? (float) $salesForDay->total : 0.00; // Default to 0 if no sales for the day
                 }
+
+
+                $numSales = $salesData->count();
+
+                if ($numSales < 3) {
+                    $mostSold = $salesData;
+                } else {
+
+                    $mostSold = $salesData->sortByDesc('total_sold')->take(3);
+                }
+
 
                 $pendingOrders=order::where('order_status',"pending")->count();
                 $shipOrders=order::where('order_status',"shipped")->count();
@@ -122,7 +124,9 @@ class AuthController extends Controller
                     'cancel'=>$cancelOrder,
                     'weekLabels'=>$weekLabels,
                     "weekSalesData"=>$weekSalesData,
+                    "mostSold"=>$mostSold,
                 ]);
+
             }else if($profile->userType=='user'){
                 return view('user.dashboard',compact('profile'));
             }else if($profile->userType=='delivery'){

@@ -8,7 +8,6 @@ use App\Models\Sale;
 class SalesController extends Controller
 {
     public function index(){
-        // Fetch sales data grouped by month
              $salesData = Sale::selectRaw('
                 MONTH(created_at) as month,
                 SUM(total_amount) as total
@@ -17,7 +16,6 @@ class SalesController extends Controller
             ->orderBy('month')
             ->get();
 
-            // Prepare data for Chart.js
             $chartData = [];
             $chartLabels = [];
             foreach ($salesData as $sale) {

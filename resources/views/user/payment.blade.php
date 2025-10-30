@@ -19,12 +19,10 @@
         @csrf
         <label for="order_id"></label>
         <input type="text" name="order_id" id="order_id" value={{ $order_id }}>
-        <!-- Display the total price dynamically -->
         <p>Total Price: </p>
         $<input type="text" name='price' value="{{ $total_price }}">
 
         <div id="card-element">
-            <!-- A Stripe Element will be inserted here. -->
         </div>
         <div>
             <label for="description">description:</label>
